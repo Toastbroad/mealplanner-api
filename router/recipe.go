@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"../services"
+	"github.com/gorilla/mux"
 )
 
 func Recipe(w http.ResponseWriter, r *http.Request) {
@@ -18,6 +19,19 @@ func Recipe(w http.ResponseWriter, r *http.Request) {
 		createRecipe(w, r)
 		return
 	}
+}
+
+func RecipeById(w http.ResponseWriter, r *http.Request) {
+	id := mux.Vars(r)["id"]
+	recipe, err := services.GetRecipeById(id)
+
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Error occured trying to get recipes", 400)
+		return
+	}
+
+	json.NewEncoder(w).Encode(recipe)
 }
 
 func getRecipes(w http.ResponseWriter, r *http.Request) {

@@ -18,11 +18,26 @@ func GetRecipes() (recipes []models.Recipe, err error) {
 	return recipes, err
 }
 
+func GetRecipeById(id string) (recipe models.Recipe, err error) {
+	recipe = models.Recipe{
+		Id: id,
+	}
+
+	err = DB.Model(&recipe).Relation("Ingredients").Where(`id='` + id + `'`).First()
+
+	if err != nil {
+		return recipe, err
+	}
+
+	return recipe, nil
+}
+
 func CreateRecipe() (recipe models.Recipe, err error) {
 	ingredients := []*models.Ingredient{
-		&models.Ingredient{Id: "69509427-891D-4A6C-9BAF-77ACA62DBB15"},
+		&models.Ingredient{Id: "6DC6F2FF-406A-4A68-9B9C-05DC9E1D8017"},
+		&models.Ingredient{Id: "A85E3914-41B0-4CC3-82C3-29D7099EFEAD"},
 	}
-	//DB := database.Connect()
+
 	newRecipe := models.Recipe{
 		Id:          string(uuid.GenerateUUID()),
 		Name:        "Super awesome recipe",

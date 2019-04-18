@@ -8,9 +8,10 @@ import (
 
 func GetRouter() http.Handler {
 	var jsonRouterConfig = map[string]func(w http.ResponseWriter, r *http.Request){
-		"/":           Index,
-		"/ingredient": Ingredient,
-		"/recipe":     Recipe,
+		"/":            Index,
+		"/ingredient":  Ingredient,
+		"/recipe":      Recipe,
+		"/recipe/{id}": RecipeById,
 	}
 
 	r := mux.NewRouter().StrictSlash(true)
