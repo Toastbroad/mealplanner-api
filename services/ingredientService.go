@@ -6,17 +6,18 @@ import (
 	"../utils/uuid"
 )
 
-func CreateIngredient(nameParam string) (err error) {
+func CreateIngredient(nameParam string) (ingredient models.Ingredient, err error) {
 	DB := database.Connect()
-
-	err = DB.Insert(&models.Ingredient{
-		Id:   uuid.GenerateUUID(),
+	newIngredient := models.Ingredient{
+		Id:   string(uuid.GenerateUUID()),
 		Name: nameParam,
-	})
-
-	if err != nil {
-		return err
 	}
 
-	return nil
+	err = DB.Insert(&newIngredient)
+
+	if err != nil {
+		return newIngredient, err
+	}
+
+	return newIngredient, nil
 }

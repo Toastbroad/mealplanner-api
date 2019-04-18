@@ -1,6 +1,6 @@
 package models
 
 type RecipeToIngredient struct {
-	RecipeID     int
-	IngredientID int
+	RecipeID     string
+	IngredientID string
 }

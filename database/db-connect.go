@@ -12,10 +12,12 @@ func Connect() *pg.DB {
 }
 
 func CreateSchema() error {
+	orm.RegisterTable((*models.RecipeToIngredient)(nil))
+
 	for _, model := range []interface{}{
-		(*models.Ingredient)(nil),
-		(*models.Recipe)(nil),
 		(*models.RecipeToIngredient)(nil),
+		(*models.Recipe)(nil),
+		(*models.Ingredient)(nil),
 	} {
 		err := DB.CreateTable(model, &orm.CreateTableOptions{
 			Temp:        false,

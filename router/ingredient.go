@@ -21,8 +21,7 @@ func createIngredient(w http.ResponseWriter, r *http.Request) {
 	}
 
 	name := r.FormValue("name")
-
-	err := services.CreateIngredient(name)
+	ingredient, err := services.CreateIngredient(name)
 
 	if err != nil {
 		fmt.Println(err)
@@ -30,5 +29,6 @@ func createIngredient(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Set("Location", "/ingredient/"+string(ingredient.Id[:]))
 	w.WriteHeader(http.StatusCreated)
 }
