@@ -9,7 +9,7 @@ import (
 var DB = database.Connect()
 
 func GetRecipes() (recipes []models.Recipe, err error) {
-	_, err = DB.Query(&recipes, `SELECT * FROM recipes`)
+	err = DB.Model(&recipes).Column("id", "name", "author", "source").Select()
 
 	if err != nil {
 		return recipes, err
@@ -19,11 +19,7 @@ func GetRecipes() (recipes []models.Recipe, err error) {
 }
 
 func GetRecipeById(id string) (recipe models.Recipe, err error) {
-	recipe = models.Recipe{
-		Id: id,
-	}
-
-	err = DB.Model(&recipe).Relation("Ingredients").Where(`id='` + id + `'`).First()
+	err = DB.Model(&recipe).Relation("Ingredients").Where(`id='` + id + `'`).Select()
 
 	if err != nil {
 		return recipe, err
