@@ -1,9 +1,9 @@
 package services
 
 import (
-	"../database"
-	"../models"
-	"../utils/uuid"
+	"github.com/toastbroad/mealplanner/database"
+	"github.com/toastbroad/mealplanner/models"
+	"github.com/toastbroad/mealplanner/utils/uuid"
 )
 
 var DB = database.Connect()

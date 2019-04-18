@@ -4,7 +4,7 @@ import (
 	"github.com/go-pg/pg"
 	"github.com/go-pg/pg/orm"
 
-	"../models"
+	"github.com/toastbroad/mealplanner/models"
 )
 
 func Connect() *pg.DB {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"../services"
+	"github.com/toastbroad/mealplanner/services"
 )
 
 func Ingredient(w http.ResponseWriter, r *http.Request) {

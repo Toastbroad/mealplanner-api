@@ -1,9 +1,9 @@
 package services
 
 import (
-	"../database"
-	"../models"
-	"../utils/uuid"
+	"github.com/toastbroad/mealplanner/database"
+	"github.com/toastbroad/mealplanner/models"
+	"github.com/toastbroad/mealplanner/utils/uuid"
 )
 
 func CreateIngredient(nameParam string) (ingredient models.Ingredient, err error) {

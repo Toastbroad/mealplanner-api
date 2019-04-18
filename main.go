@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"./database"
-	"./router"
+	"github.com/toastbroad/mealplanner/database"
+	"github.com/toastbroad/mealplanner/router"
+
 	"github.com/go-pg/pg"
 )
 
