@@ -9,6 +9,7 @@ import (
 	"github.com/toastbroad/mealplanner/services"
 )
 
+// Recipe is ...
 func Recipe(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		getRecipes(w, r)
@@ -21,7 +22,8 @@ func Recipe(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func RecipeById(w http.ResponseWriter, r *http.Request) {
+// RecipeByID is ...
+func RecipeByID(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 	recipe, err := services.GetRecipeById(id)
 

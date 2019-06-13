@@ -7,6 +7,7 @@ import (
 	"github.com/toastbroad/mealplanner/services"
 )
 
+// Ingredient is ...
 func Ingredient(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		createIngredient(w, r)

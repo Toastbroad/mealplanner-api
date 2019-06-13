@@ -28,6 +28,7 @@ func main() {
 	}
 
 	r := router.GetRouter()
+
 	// fs := http.FileServer(http.Dir("static/"))
 	// http.Handle("/static", http.StripPrefix("/static/", fs))
 	http.ListenAndServe(":8000", r)

@@ -4,14 +4,20 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/toastbroad/mealplanner/middleware"
 )
 
+// GetRouter is ...
 func GetRouter() http.Handler {
+	var auth = middleware.Authenticate
 	var jsonRouterConfig = map[string]func(w http.ResponseWriter, r *http.Request){
 		"/":            Index,
+		"/auth":        Auth,
+		"/login":       Login,
 		"/ingredient":  Ingredient,
 		"/recipe":      Recipe,
-		"/recipe/{id}": RecipeById,
+		"/recipe/{id}": RecipeByID,
+		"/test":        auth(Index),
 	}
 
 	r := mux.NewRouter().StrictSlash(true)
