@@ -1,7 +1,8 @@
 package models
 
+// Recipe is ...
 type Recipe struct {
-	Id          string        `json:"id"`
+	ID          string        `json:"id"`
 	Name        string        `json:"name"`
 	Source      string        `json:"source"`
 	Author      string        `json:"author"`

@@ -30,6 +30,6 @@ func createIngredient(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Location", "/ingredient/"+string(ingredient.Id[:]))
+	w.Header().Set("Location", "/ingredient/"+string(ingredient.ID[:]))
 	w.WriteHeader(http.StatusCreated)
 }

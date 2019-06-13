@@ -6,10 +6,11 @@ import (
 	"github.com/toastbroad/mealplanner/utils/uuid"
 )
 
+// CreateIngredient is ...
 func CreateIngredient(nameParam string) (ingredient models.Ingredient, err error) {
 	DB := database.Connect()
 	newIngredient := models.Ingredient{
-		Id:   string(uuid.GenerateUUID()),
+		ID:   string(uuid.GenerateUUID()),
 		Name: nameParam,
 	}
 

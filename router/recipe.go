@@ -25,7 +25,7 @@ func Recipe(w http.ResponseWriter, r *http.Request) {
 // RecipeByID is ...
 func RecipeByID(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
-	recipe, err := services.GetRecipeById(id)
+	recipe, err := services.GetRecipeByID(id)
 
 	if err != nil {
 		fmt.Println(err)
@@ -62,6 +62,6 @@ func createRecipe(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Location", "/recipe/"+string(recipe.Id[:]))
+	w.Header().Set("Location", "/recipe/"+string(recipe.ID[:]))
 	w.WriteHeader(http.StatusCreated)
 }

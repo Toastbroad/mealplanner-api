@@ -12,7 +12,7 @@ func GetRouter() http.Handler {
 	var auth = middleware.Authenticate
 	var jsonRouterConfig = map[string]func(w http.ResponseWriter, r *http.Request){
 		"/":            Index,
-		"/auth":        Auth,
+		"/signup":      Signup,
 		"/login":       Login,
 		"/ingredient":  Ingredient,
 		"/recipe":      Recipe,
