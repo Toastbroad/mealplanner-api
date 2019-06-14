@@ -1,14 +1,17 @@
 package services
 
-import "github.com/toastbroad/mealplanner/database"
-import "github.com/toastbroad/mealplanner/models"
+import (
+	"github.com/toastbroad/mealplanner/database"
+	"github.com/toastbroad/mealplanner/models"
+	"github.com/toastbroad/mealplanner/utils/uuid"
+)
 
 // CreateUser is ...
 func CreateUser(name string, pw string) (user models.User, err error) {
 	DB := database.Connect()
 
 	newUser := models.User{
-		ID:       "newid",
+		ID:       uuid.GenerateUUID(),
 		UserName: name,
 		Password: pw,
 	}

@@ -7,15 +7,12 @@ import (
 	"time"
 
 	cookieutils "github.com/toastbroad/mealplanner/utils/cookie"
+	errorutils "github.com/toastbroad/mealplanner/utils/error"
 	jwtutils "github.com/toastbroad/mealplanner/utils/jwt"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gorilla/context"
 )
-
-// AuthErrorMsg is ...
-type AuthErrorMsg struct {
-	Message string `json:"errorMessage"`
-}
 
 // Authenticate ...
 func Authenticate(next func(w http.ResponseWriter, r *http.Request)) func(w http.ResponseWriter, r *http.Request) {
@@ -50,7 +47,7 @@ func Authenticate(next func(w http.ResponseWriter, r *http.Request)) func(w http
 				tokenString, err := jwtutils.GetTokenString(username)
 				if err != nil {
 					w.WriteHeader(http.StatusUnauthorized)
-					json.NewEncoder(w).Encode(AuthErrorMsg{"Not authenticated: " + err.Error()})
+					json.NewEncoder(w).Encode(errorutils.ErrorMsg{Message: "Not authenticated: " + err.Error()})
 					return
 				}
 
@@ -59,14 +56,14 @@ func Authenticate(next func(w http.ResponseWriter, r *http.Request)) func(w http
 					expirationTime := time.Now().Add(5 * time.Minute)
 					cookieutils.SetCookie(w, tokenString, expirationTime)
 				}
-
+				context.Set(r, "username", username) // would make more sense to have user ID than username!?!?
 				next(w, r)
 			} else {
 				w.WriteHeader(http.StatusUnauthorized)
 			}
 		} else {
 			w.WriteHeader(http.StatusUnauthorized)
-			json.NewEncoder(w).Encode(AuthErrorMsg{"Not authenticated: " + err.Error()})
+			json.NewEncoder(w).Encode(errorutils.ErrorMsg{Message: "Not authenticated: " + err.Error()})
 		}
 	}
 }
