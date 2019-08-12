@@ -1,2 +1,3 @@
 docker-compose/srv/**/*
 env.sh
+mealplanner-api
