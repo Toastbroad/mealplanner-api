@@ -5,14 +5,12 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/toastbroad/mealplanner-api/services"
 	cookieutils "github.com/toastbroad/mealplanner-api/utils/cookie"
 	jwtutils "github.com/toastbroad/mealplanner-api/utils/jwt"
-)
 
-var users = map[string]string{
-	"user1": "password1",
-	"user2": "password2",
-}
+	"golang.org/x/crypto/bcrypt"
+)
 
 // Credentials is a struct that models the structure of a user, both in the request body, and in the DB
 type Credentials struct {
@@ -28,21 +26,18 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var creds Credentials
-	// Get the JSON body and decode into credentials
 	err := json.NewDecoder(r.Body).Decode(&creds)
 	if err != nil {
-		// If the structure of the body is wrong, return an HTTP error
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	// Get the expected password from our in memory map
-	expectedPassword, ok := users[creds.Username]
+	user, err := services.GetUserByName(creds.Username)
 
-	// If a password exists for the given user
-	// AND, if it is the same as the password we received, the we can move ahead
-	// if NOT, then we return an "Unauthorized" status
-	if !ok || expectedPassword != creds.Password {
+	expectedPassword := user.Password
+	err = bcrypt.CompareHashAndPassword([]byte(expectedPassword), []byte(creds.Password))
+
+	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}

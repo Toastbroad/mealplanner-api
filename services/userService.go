@@ -6,6 +6,12 @@ import (
 	"github.com/toastbroad/mealplanner-api/utils/uuid"
 )
 
+func GetUserByName(userName string) (user models.User, err error) {
+	DB := database.Connect()
+	err = DB.Model(&user).Where("user_name = ?", userName).Select()
+	return user, err
+}
+
 // CreateUser is ...
 func CreateUser(name string, pw string) (user models.User, err error) {
 	DB := database.Connect()
