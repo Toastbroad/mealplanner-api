@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/toastbroad/mealplanner/middleware"
+	"github.com/toastbroad/mealplanner-api/middleware"
 )
 
 // GetRouter is ...

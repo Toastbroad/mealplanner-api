@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	cookieutils "github.com/toastbroad/mealplanner/utils/cookie"
-	errorutils "github.com/toastbroad/mealplanner/utils/error"
-	jwtutils "github.com/toastbroad/mealplanner/utils/jwt"
+	cookieutils "github.com/toastbroad/mealplanner-api/utils/cookie"
+	errorutils "github.com/toastbroad/mealplanner-api/utils/error"
+	jwtutils "github.com/toastbroad/mealplanner-api/utils/jwt"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/context"

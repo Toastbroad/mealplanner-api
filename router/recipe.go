@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/toastbroad/mealplanner/services"
+	"github.com/toastbroad/mealplanner-api/services"
 )
 
 // Recipe is ...

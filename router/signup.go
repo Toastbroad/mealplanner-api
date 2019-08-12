@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/toastbroad/mealplanner/services"
-	errorutils "github.com/toastbroad/mealplanner/utils/error"
+	"github.com/toastbroad/mealplanner-api/services"
+	errorutils "github.com/toastbroad/mealplanner-api/utils/error"
 
 	"golang.org/x/crypto/bcrypt"
 )

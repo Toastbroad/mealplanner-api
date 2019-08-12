@@ -4,7 +4,7 @@ import (
 	"github.com/go-pg/pg"
 	"github.com/go-pg/pg/orm"
 
-	"github.com/toastbroad/mealplanner/models"
+	"github.com/toastbroad/mealplanner-api/models"
 )
 
 // Connect is ...

@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	cookieutils "github.com/toastbroad/mealplanner/utils/cookie"
-	jwtutils "github.com/toastbroad/mealplanner/utils/jwt"
+	cookieutils "github.com/toastbroad/mealplanner-api/utils/cookie"
+	jwtutils "github.com/toastbroad/mealplanner-api/utils/jwt"
 )
 
 var users = map[string]string{

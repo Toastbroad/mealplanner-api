@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/toastbroad/mealplanner/database"
-	"github.com/toastbroad/mealplanner/router"
+	"github.com/toastbroad/mealplanner-api/database"
+	"github.com/toastbroad/mealplanner-api/router"
 
 	"github.com/go-pg/pg"
 )

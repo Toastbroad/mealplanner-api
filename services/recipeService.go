@@ -1,9 +1,9 @@
 package services
 
 import (
-	"github.com/toastbroad/mealplanner/database"
-	"github.com/toastbroad/mealplanner/models"
-	"github.com/toastbroad/mealplanner/utils/uuid"
+	"github.com/toastbroad/mealplanner-api/database"
+	"github.com/toastbroad/mealplanner-api/models"
+	"github.com/toastbroad/mealplanner-api/utils/uuid"
 )
 
 // DB is ...

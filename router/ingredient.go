@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/toastbroad/mealplanner/services"
+	"github.com/toastbroad/mealplanner-api/services"
 )
 
 // Ingredient is ...
