@@ -33,12 +33,8 @@ func GetRecipeByID(id string) (recipe models.Recipe, err error) {
 
 // CreateRecipe is ...
 func CreateRecipe(parsedRecipe models.Recipe) (recipe models.Recipe, err error) {
-	newRecipe := models.Recipe{
-		ID:     string(uuid.GenerateUUID()),
-		Name:   parsedRecipe.Name,
-		Source: parsedRecipe.Source,
-		Author: parsedRecipe.Author,
-	}
+	newRecipe := parsedRecipe
+	newRecipe.ID = string(uuid.GenerateUUID())
 
 	err = DB.Insert(&newRecipe)
 
