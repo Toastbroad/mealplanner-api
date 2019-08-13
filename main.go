@@ -21,7 +21,7 @@ func (d dbLogger) AfterQuery(q *pg.QueryEvent) {
 func main() {
 	DB := database.Connect()
 	DB.AddQueryHook(dbLogger{})
-
+	// DB.DropTable(&models.Recipe{}, &orm.DropTableOptions{})
 	err := database.CreateSchema()
 	if err != nil {
 		fmt.Println("Error ...", err)

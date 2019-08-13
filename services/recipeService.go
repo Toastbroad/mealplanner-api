@@ -32,17 +32,12 @@ func GetRecipeByID(id string) (recipe models.Recipe, err error) {
 }
 
 // CreateRecipe is ...
-func CreateRecipe() (recipe models.Recipe, err error) {
-	ingredientIDs := []string{
-		"30299911-6EF3-468B-8008-8C25F4247610",
-		"8DF46963-046E-4ECD-B9AE-82EF5F50C2B2",
-	}
-
+func CreateRecipe(parsedRecipe models.Recipe) (recipe models.Recipe, err error) {
 	newRecipe := models.Recipe{
 		ID:     string(uuid.GenerateUUID()),
-		Name:   "Super awesome recipe II",
-		Source: "Delightful Cookbook Vol II",
-		Author: "Oliver Broad",
+		Name:   parsedRecipe.Name,
+		Source: parsedRecipe.Source,
+		Author: parsedRecipe.Author,
 	}
 
 	err = DB.Insert(&newRecipe)
@@ -51,7 +46,7 @@ func CreateRecipe() (recipe models.Recipe, err error) {
 		return newRecipe, err
 	}
 
-	for _, ingredientID := range ingredientIDs {
+	for _, ingredientID := range parsedRecipe.IngredientIDs {
 		err := DB.Insert(&models.RecipeToIngredient{
 			RecipeID:     newRecipe.ID,
 			IngredientID: ingredientID,

@@ -22,7 +22,6 @@ func Ingredient(w http.ResponseWriter, r *http.Request) {
 }
 
 func getIngredients(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("getting all ingredients")
 	ingredients, err := services.GetIngredients()
 	if err != nil {
 		fmt.Println(err)

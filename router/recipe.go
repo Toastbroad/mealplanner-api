@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/toastbroad/mealplanner-api/models"
 	"github.com/toastbroad/mealplanner-api/services"
 )
 
@@ -49,12 +50,9 @@ func getRecipes(w http.ResponseWriter, r *http.Request) {
 }
 
 func createRecipe(w http.ResponseWriter, r *http.Request) {
-	if err := r.ParseForm(); err != nil {
-		fmt.Fprintf(w, "ParseForm() err: %v", err)
-		return
-	}
-
-	recipe, err := services.CreateRecipe()
+	recipe := &models.Recipe{}
+	json.NewDecoder(r.Body).Decode(recipe)
+	newRecipe, err := services.CreateRecipe(*recipe)
 
 	if err != nil {
 		fmt.Println(err)
@@ -62,6 +60,6 @@ func createRecipe(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Location", "/recipe/"+string(recipe.ID[:]))
+	w.Header().Set("Location", "/recipe/"+string(newRecipe.ID[:]))
 	w.WriteHeader(http.StatusCreated)
 }
