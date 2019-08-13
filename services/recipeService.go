@@ -11,7 +11,7 @@ var DB = database.Connect()
 
 // GetRecipes is ...
 func GetRecipes() (recipes []models.Recipe, err error) {
-	err = DB.Model(&recipes).Column("id", "name", "author", "source").Select()
+	err = DB.Model(&recipes).Relation("Ingredients").Select()
 
 	if err != nil {
 		return recipes, err
@@ -33,17 +33,16 @@ func GetRecipeByID(id string) (recipe models.Recipe, err error) {
 
 // CreateRecipe is ...
 func CreateRecipe() (recipe models.Recipe, err error) {
-	ingredients := []*models.Ingredient{
-		&models.Ingredient{ID: "6DC6F2FF-406A-4A68-9B9C-05DC9E1D8017"},
-		&models.Ingredient{ID: "A85E3914-41B0-4CC3-82C3-29D7099EFEAD"},
+	ingredientIDs := []string{
+		"30299911-6EF3-468B-8008-8C25F4247610",
+		"8DF46963-046E-4ECD-B9AE-82EF5F50C2B2",
 	}
 
 	newRecipe := models.Recipe{
-		ID:          string(uuid.GenerateUUID()),
-		Name:        "Super awesome recipe",
-		Source:      "Delightful Cookbook Vol II",
-		Author:      "Oliver Broad",
-		Ingredients: ingredients,
+		ID:     string(uuid.GenerateUUID()),
+		Name:   "Super awesome recipe II",
+		Source: "Delightful Cookbook Vol II",
+		Author: "Oliver Broad",
 	}
 
 	err = DB.Insert(&newRecipe)
@@ -52,10 +51,10 @@ func CreateRecipe() (recipe models.Recipe, err error) {
 		return newRecipe, err
 	}
 
-	for _, ingredient := range newRecipe.Ingredients {
+	for _, ingredientID := range ingredientIDs {
 		err := DB.Insert(&models.RecipeToIngredient{
 			RecipeID:     newRecipe.ID,
-			IngredientID: ingredient.ID,
+			IngredientID: ingredientID,
 		})
 
 		if err != nil {

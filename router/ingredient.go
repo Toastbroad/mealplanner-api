@@ -1,9 +1,11 @@
 package router
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
+	"github.com/toastbroad/mealplanner-api/models"
 	"github.com/toastbroad/mealplanner-api/services"
 )
 
@@ -13,16 +15,28 @@ func Ingredient(w http.ResponseWriter, r *http.Request) {
 		createIngredient(w, r)
 		return
 	}
+
+	if r.Method == http.MethodGet {
+		getIngredients(w, r)
+	}
+}
+
+func getIngredients(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("getting all ingredients")
+	ingredients, err := services.GetIngredients()
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Error occured trying to create ingredient", 400)
+		return
+	}
+	fmt.Println("ingredients: ", ingredients)
+	json.NewEncoder(w).Encode(ingredients)
 }
 
 func createIngredient(w http.ResponseWriter, r *http.Request) {
-	if err := r.ParseForm(); err != nil {
-		fmt.Fprintf(w, "ParseForm() err: %v", err)
-		return
-	}
-
-	name := r.FormValue("name")
-	ingredient, err := services.CreateIngredient(name)
+	ingredient := &models.Ingredient{}
+	json.NewDecoder(r.Body).Decode(ingredient)
+	newIngredient, err := services.CreateIngredient(*ingredient)
 
 	if err != nil {
 		fmt.Println(err)
@@ -30,6 +44,6 @@ func createIngredient(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Location", "/ingredient/"+string(ingredient.ID[:]))
+	w.Header().Set("Location", "/ingredient/"+string(newIngredient.ID[:]))
 	w.WriteHeader(http.StatusCreated)
 }
